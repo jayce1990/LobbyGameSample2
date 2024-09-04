@@ -1,0 +1,1 @@
+﻿public enum EnumEmoteType { None = 0, Smile, Frown, Unamused, Tongue }
