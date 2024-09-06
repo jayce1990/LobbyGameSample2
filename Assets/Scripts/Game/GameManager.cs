@@ -1,8 +1,10 @@
 
+using LobbyRelaySample;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using UnityEngine;
 using vivox;
@@ -53,6 +55,47 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     List<VivoxPlayerHandler> m_vivoxPlayerHandlers;
 
+    #region Setup
+    async Task InitializeServices()
+    {
+        string serviceProfileName = "player";
+#if UNITY_EDITOR
+        serviceProfileName = $"{serviceProfileName}{LocalProfileTool.LocalProfileSuffix}";
+#endif
+        await UnityServiceAuthenticator.TrySignInAsync(serviceProfileName);
+        AuthenticatePlayer();
+
+    }
+    void AuthenticatePlayer()
+    {
+        var localId = AuthenticationService.Instance.PlayerId;
+        m_LocalPlayer.ID.Value = localId;
+        m_LocalPlayer.DisplayName.Value = NameGenerator.GetName(localId);
+    }
+    void StartVivoxLogin()
+    {
+        m_VivoxSetup.Initialize(m_vivoxPlayerHandlers, (didSucceed) =>
+        {
+            if (!didSucceed)
+            {
+                Debug.LogError("Vivox login failed! Retrying in 5s...");
+                StartCoroutine(RetryConnection(StartVivoxLogin, m_LocalLobby.LobbyID.Value));
+            }
+        });
+    }
+    async void Awake()
+    {
+        Application.wantsToQuit += OnWantsToQuit;
+        m_LocalPlayer = new LocalPlayer("", 0, false, "LocalPlayer");
+        m_LocalLobby = new LocalLobby();
+        LobbyManager = new LobbyManager();
+
+        await InitializeServices();
+        AuthenticatePlayer();
+        StartVivoxLogin();
+    }
+    #endregion
+
     public void SetLobbyColorFilter(int color)
     {
         m_lobbyColorFilter = (EnumLobbyColor)color;
@@ -71,9 +114,12 @@ public class GameManager : MonoBehaviour
 #pragma warning disable 4014
         LobbyManager.LeaveLobbyAsync();
 #pragma warning restore 4014
+
+        //重置LocalLobby
         m_LocalLobby.ResetLobby();
         m_LocalLobby.RelayServer = null;
-        //m_VivoxSetup.LeaveLobbyChannel();
+
+        m_VivoxSetup.LeaveLobbyChannel();
         LobbyList.Clear();
     }
     void SetGameState(GameState state)
@@ -223,7 +269,6 @@ public class GameManager : MonoBehaviour
         LobbyList.QueryState.Value = EnumLobbyQueryState.Fetched;
     }
 
-
     public void SetLocalPlayerName(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
@@ -240,6 +285,7 @@ public class GameManager : MonoBehaviour
         m_LocalPlayer.Emote.Value = emote;
         SendLocalPlayerData();
     }
+
     async void SendLocalLobbyData()
     {
         await LobbyManager.UpdateLobbyDataAsync(LobbyConverters.LocalToRemoteLobbyData(m_LocalLobby));
@@ -251,5 +297,78 @@ public class GameManager : MonoBehaviour
         m_LocalLobby.LocalLobbyColor.Value = (EnumLobbyColor)color;
         SendLocalLobbyData();
     }
+    public void HostSetRelayCode(string code)
+    {
+        m_LocalLobby.RelayCode.Value = code;
+        SendLocalLobbyData();
+    }
 
+    public void FinishedCountDown()
+    {
+        m_LocalPlayer.PlayerStatus.Value = EnumPlayerStatus.InGame;
+        m_LocalLobby.LocalLobbyState.Value = EnumLobbyState.InGame;
+        //m_setupInGame.StartNetworkedGame(m_LocalLobby, m_LocalPlayer);
+    }
+    public void BeginGame()
+    {
+        if (m_LocalPlayer.IsHost.Value)
+        {
+            m_LocalLobby.LocalLobbyState.Value = EnumLobbyState.InGame;
+            m_LocalLobby.Locked.Value = true;
+            SendLocalLobbyData();
+        }
+    }
+    public void EndGame()
+    {
+        if (m_LocalPlayer.IsHost.Value)
+        {
+            m_LocalLobby.LocalLobbyState.Value = EnumLobbyState.Lobby;
+            m_LocalLobby.Locked.Value = false;
+            SendLocalLobbyData();
+        }
+        SetLobbyView();
+    }
+    public void UIChangeMenuState(GameState state)
+    {
+        var isQuittingGame = LocalGameState == GameState.Lobby && m_LocalLobby.LocalLobbyState.Value == EnumLobbyState.InGame;
+
+        if (isQuittingGame)
+        {
+            state = GameState.Lobby;//如果在游戏状态,确保先从Lobby状态停止.
+            EndGame();
+            //m_setupInGame?.OnGameEnd();
+        }
+        SetGameState(state);
+    }
+
+    #region Teardown
+    void ForceLeaveAttempt()
+    {
+        if (!string.IsNullOrEmpty(m_LocalLobby?.LobbyID.Value))
+        {
+#pragma warning disable 4014
+            LobbyManager.LeaveLobbyAsync();
+#pragma warning restore 4014
+            m_LocalLobby = null;
+        }
+    }
+    private void OnDestroy()
+    {
+        ForceLeaveAttempt();
+        LobbyManager.Dispose();
+
+    }
+    IEnumerator LeaveBeforeQuit()
+    {
+        ForceLeaveAttempt();
+        yield return null;
+        Application.Quit();
+    }
+    bool OnWantsToQuit()
+    {
+        bool canQuit = string.IsNullOrEmpty(m_LocalLobby?.LobbyID.Value);
+        StartCoroutine(LeaveBeforeQuit());
+        return canQuit;
+    }
+    #endregion
 }
