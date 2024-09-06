@@ -48,8 +48,8 @@ public class GameManager : MonoBehaviour
 
     //[SerializeField]
     //SetupInGame m_setupInGame;
-    //[SerializeField]
-    //Countdown m_countdown;
+    [SerializeField]
+    CountDown m_countDown;
 
     VivoxSetup m_VivoxSetup = new VivoxSetup();
     [SerializeField]
@@ -176,13 +176,13 @@ public class GameManager : MonoBehaviour
         {
             if (enumLobbyState == EnumLobbyState.Lobby)
             {
-                Debug.Log("Countdown Cancelled.");
-                //m_countdown.CancelCountDown();
+                Debug.Log("CountDown Cancelled.");
+                m_countDown.CancelCountDown();
             }
             if (enumLobbyState == EnumLobbyState.CountDown)
             {
-                Debug.Log("Countdown Beginning.");
-                //m_countdown.BeginCountDown();
+                Debug.Log("CountDown Beginning.");
+                m_countDown.StartCountDown();
             }
         };
         SetLobbyView();
@@ -261,6 +261,8 @@ public class GameManager : MonoBehaviour
         }
 
         List<LocalLobby> lobbies = LobbyConverters.QueryToLocalList(qr);
+
+        //SetCurrentLobbies
         var newLobbyDict = new Dictionary<string, LocalLobby>();
         foreach (var lobby in lobbies)
             newLobbyDict.Add(lobby.LobbyID.Value, lobby);

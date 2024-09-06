@@ -7,26 +7,26 @@ using UnityEngine;
 /// Q:倒计时的开始是通过Relay同步的?但是本地是在倒计时结束的时候开始填充Relay连接数据的啊!难道这里指的是LobbyService底层用的Relay同步的,而非游戏内的Relay连接?
 /// 是否可以跟踪断点,查看LobbyService.Instance.UpdatePlayerAsync底层发送实现,是通过什么Relay、什么地址连接的吗?
 /// </summary>
-//[RequireComponent(typeof(CountdownUI))]
-public class Countdown : MonoBehaviour
+//[RequireComponent(typeof(CountDownUI))]
+public class CountDown : MonoBehaviour
 {
     CallbackValue<float> TimeLeft = new CallbackValue<float>();
-    //CountdownUI m_ui;
-    const int k_countdownTime = 4;
+    //CountDownUI m_ui;
+    const int k_countDownTime = 4;
 
     void Start()
     {
-        //m_ui = GetComponent<CountdownUI>();
+        //m_ui = GetComponent<CountDownUI>();
         //TimeLeft.onChanged += m_ui.OnTimeChanged;
-        TimeLeft.Value = k_countdownTime;
+        TimeLeft.Value = k_countDownTime;
     }
 
-    public void StartCountdown()
+    public void StartCountDown()
     {
-        TimeLeft.Value = k_countdownTime;
+        TimeLeft.Value = k_countDownTime;
     }
 
-    public void CancelCountdown()
+    public void CancelCountDown()
     {
         TimeLeft.Value = -1;
     }
@@ -38,6 +38,6 @@ public class Countdown : MonoBehaviour
 
         TimeLeft.Value -= Time.deltaTime;
         //if (TimeLeft.Value < 0)
-            //GameManager.Instance.FinishCountdown();
+            //GameManager.Instance.FinishCountDown();
     }
 }
