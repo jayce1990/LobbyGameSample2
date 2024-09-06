@@ -28,7 +28,7 @@ public class LobbyConverters
         return data;
     }
 
-    public static Dictionary<string, string> LocalToRemoteUserData(LocalPlayer player)
+    public static Dictionary<string, string> LocalToRemotePlayerData(LocalPlayer player)
     {
         Dictionary<string, string> data = new Dictionary<string, string>();
         data.Add(key_Displayname, player.DisplayName.Value);

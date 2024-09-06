@@ -32,7 +32,7 @@ public class LocalLobby
 
     public Action<int> onUserLeft;
 
-    public Action<int> onUserReadyChange;
+    public Action<int> onPlayerReadyChange;
 
     public CallbackValue<string> LobbyID = new CallbackValue<string>();
 
@@ -68,7 +68,7 @@ public class LocalLobby
     {        
         onUserJoined = null;
         onUserLeft = null;
-        onUserReadyChange = null;
+        onPlayerReadyChange = null;
         LobbyID.Value = "";
         LobbyName.Value = "";
         RelayCode.Value = "";        
@@ -134,7 +134,7 @@ public class LocalLobby
             }
         }
 
-        onUserReadyChange?.Invoke(readyCount);
+        onPlayerReadyChange?.Invoke(readyCount);
     }
 
     public override string ToString()
