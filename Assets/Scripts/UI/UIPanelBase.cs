@@ -10,6 +10,16 @@ public class UIPanelBase : MonoBehaviour
     private UnityEvent<bool> m_onVisiblityChange;
     bool showing;
 
+    protected GameManager Manager
+    {
+        get
+        {
+            if (m_gameManager == null)
+                m_gameManager = GameManager.Instance;
+            return m_gameManager;
+        }
+    }
+    GameManager m_gameManager;
     CanvasGroup m_canvasGroup;
     //当该UIPanel被显示隐藏时,子UIPanel不知道要更新它们的可见性，故这里存储用于调用.
     List<UIPanelBase> m_uiPanelsInChildren = new List<UIPanelBase>();
