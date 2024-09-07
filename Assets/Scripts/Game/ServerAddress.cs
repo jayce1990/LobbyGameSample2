@@ -37,4 +37,9 @@ public class ServerAddress : IEquatable<ServerAddress>
         if (obj.GetType() != this.GetType()) return false;
         return Equals((ServerAddress)obj);
     }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
 }

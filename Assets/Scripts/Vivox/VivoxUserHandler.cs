@@ -13,8 +13,8 @@ namespace vivox
     /// </summary>
     public class VivoxPlayerHandler : MonoBehaviour
     {
-        //[SerializeField]
-        //private LobbyUserVolumeUI m_lobbyUserVolumeUI;
+        [SerializeField]
+        private LobbyPlayerVolumeUI m_lobbyPlayerVolumeUI;
 
         private IChannelSession m_channelSession;
         private string m_id;
@@ -29,7 +29,7 @@ namespace vivox
 
         public void Start()
         {
-            //m_lobbyUserVolumeUI.DisableVoice(true);
+            m_lobbyPlayerVolumeUI.DisableVoice(true);
         }
 
         public void SetId(string id)
@@ -45,8 +45,8 @@ namespace vivox
                     if (m_id == participant.Account.DisplayName)
                     {
                         m_vivoxId = participant.Key;
-                        //m_lobbyUserVolumeUI.IsLocalPlayer = participant.IsSelf;
-                        //m_lobbyUserVolumeUI.EnableVoice(true);
+                        m_lobbyPlayerVolumeUI.IsLocalPlayer = participant.IsSelf;
+                        m_lobbyPlayerVolumeUI.EnableVoice(true);
                         break;
                     }
                 }
@@ -85,17 +85,17 @@ namespace vivox
                 m_vivoxId = e.Key;//由于无法更早的构造VivoxID,这里设置它.
                                   //m_lobbyUserVolumeUI.IsLocalPlayer = participant.IsSelf;
 
-                //if (participant.IsMutedForAll)
-                //    m_lobbyPlayerVolumeUI.DisableVoice(false);
-                //else
-                //    m_lobbyPlayerVolumeUI.EnableVoice(false);//应该检查用户是否被禁言了
+                if (participant.IsMutedForAll)
+                    m_lobbyPlayerVolumeUI.DisableVoice(false);
+                else
+                    m_lobbyPlayerVolumeUI.EnableVoice(false);//应该检查用户是否被禁言了
             }
             else
             {
-                //if (participant.LocalMute)
-                //    m_lobbyPlayerVolumeUI.DisableVoice(false);
-                //else
-                //    m_lobbyPlayerVolumeUI.EnableVoice(false);//应该检查用户是否被禁言了
+                if (participant.LocalMute)
+                    m_lobbyPlayerVolumeUI.DisableVoice(false);
+                else
+                    m_lobbyPlayerVolumeUI.EnableVoice(false);//应该检查用户是否被禁言了
             }
         }
 
@@ -112,21 +112,21 @@ namespace vivox
                 {
                     if (participant.UnavailableCaptureDevice)
                     {
-                        //m_lobbyPlayerVolumeUI.DisableVoice(false);
+                        m_lobbyPlayerVolumeUI.DisableVoice(false);
                         participant.SetIsMuteForAll(true, null);//注意:如果你需要添加更多一个玩家全局静音的地方,使用状态机可能更能精确的控制逻辑.
                     }
                     else
                     {
-                        //m_lobbyPlayerVolumeUI.EnableVoice(false);
-                        //participant.SetIsMuteForAll(false, null);//需要注意的是这个调用是异步的,因此在其完成前可能退出了lobby,将会导致一个Vivox错误.
+                        m_lobbyPlayerVolumeUI.EnableVoice(false);
+                        participant.SetIsMuteForAll(false, null);//需要注意的是这个调用是异步的,因此在其完成前可能退出了lobby,将会导致一个Vivox错误.
                     }
                 }
                 else if (propertyName == "IsMutedForAll")
                 {
-                    //if (participant.IsMutedForAll)
-                    //    m_lobbyPlayerVolumeUI.DisableVoice(false);
-                    //else
-                    //    m_lobbyPlayerVolumeUI.EnableVoice(false);
+                    if (participant.IsMutedForAll)
+                        m_lobbyPlayerVolumeUI.DisableVoice(false);
+                    else
+                        m_lobbyPlayerVolumeUI.EnableVoice(false);
                 }
             }
         }
@@ -137,8 +137,8 @@ namespace vivox
             var participant = source[e.Key];
             var displayName = participant.Account.DisplayName;
 
-            //if (displayName == m_id)
-            //    m_lobbyPlayerVolumeUI.DisableVoice(true);
+            if (displayName == m_id)
+                m_lobbyPlayerVolumeUI.DisableVoice(true);
         }
 
         public void OnVolumeSlide(float volumeNormalized)

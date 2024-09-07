@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [SerializeField]
-public class LobbyUserAudio
+public class LobbyPlayerAudio
 {
     public string ID { get; private set; }
 
@@ -17,7 +17,7 @@ public class LobbyUserAudio
         set => m_userVolume = Mathf.Clamp01(value);
     }
 
-    public LobbyUserAudio(string userID)
+    public LobbyPlayerAudio(string userID)
     {
         ID = userID;
         HasVoice = false;
