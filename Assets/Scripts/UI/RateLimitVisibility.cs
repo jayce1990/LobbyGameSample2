@@ -10,15 +10,23 @@ public class RateLimitVisibility : MonoBehaviour
     float m_alphaWhenHidden = 0.5f;
     [SerializeField]
     LobbyManager.EnumRequestType m_requestType;
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        GameManager.Instance.LobbyManager.GetRateLimiter(m_requestType).onCooldownChange += UpdateVisibility;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
     {
-        
+        if (GameManager.Instance == null || GameManager.Instance.LobbyManager == null)
+            return;
+        GameManager.Instance.LobbyManager.GetRateLimiter(m_requestType).onCooldownChange -= UpdateVisibility;
+    }
+
+    void UpdateVisibility(bool isCollingDown)
+    {
+        if (isCollingDown)
+            m_target.Hide(m_alphaWhenHidden);
+        else
+            m_target.Show();
     }
 }

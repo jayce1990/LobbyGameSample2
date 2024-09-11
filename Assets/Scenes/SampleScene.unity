@@ -339,6 +339,9 @@ MonoBehaviour:
   m_onVisiblityChange:
     m_PersistentCalls:
       m_Calls: []
+  m_LobbyButtonParent: {fileID: 0}
+  m_JoinCodeField: {fileID: 0}
+  m_JoinCreateLobbyUI: {fileID: 0}
 --- !u!224 &51475841 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 33739302316498706, guid: 63c1c69a9a62f88439e807bc3549ba1d, type: 3}
@@ -2208,7 +2211,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_onVisiblityChange:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 49826470}
+        m_TargetAssemblyTypeName: JoinMenuUI, Assembly-CSharp
+        m_MethodName: JoinMenuChangedVisibility
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTabChanged:
     m_PersistentCalls:
       m_Calls: []
