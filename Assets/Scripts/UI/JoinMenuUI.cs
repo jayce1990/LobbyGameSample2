@@ -25,7 +25,7 @@ public class JoinMenuUI : UIPanelBase
         Manager.LobbyList.onLobbyListChange += OnLobbyListChanged;
     }
 
-    public void OnRefresh()
+    public void OnRefreshClick()
     {
         Manager.QueryLobbies();
     }
@@ -34,7 +34,7 @@ public class JoinMenuUI : UIPanelBase
         if (show)
         {
             m_JoinCodeField.text = "";
-            OnRefresh();
+            OnRefreshClick();
         }
     }
     public void OnLobbyCodeInputFieldChanged(string newCode)
@@ -47,7 +47,7 @@ public class JoinMenuUI : UIPanelBase
         if (!string.IsNullOrEmpty(newPwd))
             m_InputLobbyPwd = newPwd.ToUpper();
     }
-    public void OnJoinButtonPressed()
+    public void OnJoinClick()
     {
         if (m_LocalLobbySelected != null)
         {
@@ -56,7 +56,7 @@ public class JoinMenuUI : UIPanelBase
             m_LocalLobbySelected = null;
         }
     }
-    public void OnQuickJoin()
+    public void OnQuickJoinClick()
     {
         Manager.QuickJoin();
     }

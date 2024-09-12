@@ -4,8 +4,8 @@ using UnityEngine.Events;
 
 public class LobbyEntryUI : MonoBehaviour
 {
-    //[SerializeField]
-    //ColorLobbyUI m_ColorLobbyUI;
+    [SerializeField]
+    ColorLobbyUI m_ColorLobbyUI;
     [SerializeField]
     TMP_Text lobbyNameText;
     [SerializeField]
@@ -22,7 +22,7 @@ public class LobbyEntryUI : MonoBehaviour
     public void SetLobby(LocalLobby lobby)
     {
         m_Lobby = lobby;
-        //m_ColorLobbyUI.SetLobby(lobby);
+        m_ColorLobbyUI.SetLobby(lobby);
 
         SetLobbyNameText();
         SetLobbyCountText();
