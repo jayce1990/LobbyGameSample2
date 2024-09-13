@@ -72,14 +72,16 @@ public class JoinMenuUI : UIPanelBase
             Hide();
         }
     }
-    void RemoveLobbyButton(string lobbyID)
-    {
-        var lobbyButton = m_LobbyButtons[lobbyID];
-        m_LobbyButtons.Remove(lobbyID);
-        Destroy(lobbyButton.gameObject);
-    }
+
     void OnLobbyListChanged(Dictionary<string, LocalLobby> localLobbys)
     {
+        void RemoveLobbyButton(string lobbyID)
+        {
+            var lobbyButton = m_LobbyButtons[lobbyID];
+            m_LobbyButtons.Remove(lobbyID);
+            Destroy(lobbyButton.gameObject);
+        }
+
         //删除已创建但没了的大厅,列表UI项.
         var removalList = new List<string>();
         foreach (var lobbyID in m_LobbyButtons.Keys)
