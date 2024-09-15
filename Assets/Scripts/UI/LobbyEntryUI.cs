@@ -27,8 +27,8 @@ public class LobbyEntryUI : MonoBehaviour
         SetLobbyNameText();
         SetLobbyCountText();
         m_Lobby.LobbyName.onChanged += (_) => { SetLobbyNameText(); };
-        m_Lobby.onUserJoined += (_) => { SetLobbyCountText(); };
-        m_Lobby.onUserLeft += (_) => { SetLobbyCountText(); };
+        m_Lobby.onPlayerJoined += (_) => { SetLobbyCountText(); };
+        m_Lobby.onPlayerLeft += (_) => { SetLobbyCountText(); };
     }
 
     void SetLobbyNameText()

@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
     {
         await LobbyManager.UpdatePlayerDataAsync(LobbyConverters.LocalToRemotePlayerData(m_LocalPlayer));
     }
-    void SetLocalPlayerStatus(EnumPlayerStatus playerStatus)
+    public void SetLocalPlayerStatus(EnumPlayerStatus playerStatus)
     {
         m_LocalPlayer.PlayerStatus.Value = playerStatus;
         SendLocalPlayerData();

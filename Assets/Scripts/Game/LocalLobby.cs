@@ -28,9 +28,9 @@ public enum EnumLobbyColor
 [Serializable]
 public class LocalLobby
 {
-    public Action<LocalPlayer> onUserJoined;
+    public Action<LocalPlayer> onPlayerJoined;
 
-    public Action<int> onUserLeft;
+    public Action<int> onPlayerLeft;
 
     public Action<int> onPlayerReadyChange;
 
@@ -66,8 +66,8 @@ public class LocalLobby
 
     public void ResetLobby()
     {        
-        onUserJoined = null;
-        onUserLeft = null;
+        onPlayerJoined = null;
+        onPlayerLeft = null;
         onPlayerReadyChange = null;
         LobbyID.Value = "";
         LobbyName.Value = "";
@@ -113,14 +113,14 @@ public class LocalLobby
     {
         m_LocalPlayers.Insert(index, user);
         user.PlayerStatus.onChanged += OnPlayerStatusChanged;
-        onUserJoined?.Invoke(user);
+        onPlayerJoined?.Invoke(user);
     }
 
     public void RemovePlayer(int playerIndex)
     {
         m_LocalPlayers[playerIndex].PlayerStatus.onChanged -= OnPlayerStatusChanged;
         m_LocalPlayers.RemoveAt(playerIndex);
-        onUserLeft?.Invoke(playerIndex);
+        onPlayerLeft?.Invoke(playerIndex);
     }
 
     void OnPlayerStatusChanged(EnumPlayerStatus PlayerStatus)

@@ -30,7 +30,7 @@ public class LobbyPlayerVolumeUI : MonoBehaviour
     {
         if (shouldRestUi)//÷ÿ÷√ƒ¨»œ÷µ
         {
-            m_volumeSlider.SetValueWithoutNotify(vivox.VivoxPlayerHandler.NormalizedVolumeDefault);
+            m_volumeSlider.SetValueWithoutNotify(VivoxPlayerHandler.NormalizedVolumeDefault);
             m_muteToggle.SetIsOnWithoutNotify(false);
         }
 
@@ -54,7 +54,7 @@ public class LobbyPlayerVolumeUI : MonoBehaviour
     {
         if (shouldResetUi)
         {
-            m_volumeSlider.value = vivox.VivoxPlayerHandler.NormalizedVolumeDefault;
+            m_volumeSlider.value = VivoxPlayerHandler.NormalizedVolumeDefault;
             m_muteToggle.isOn = false;
         }
 

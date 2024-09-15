@@ -1,4 +1,3 @@
-
 using UnityEngine.UI;
 
 public class CreateMenuUI : UIPanelBase
