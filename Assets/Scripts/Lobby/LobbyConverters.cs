@@ -82,6 +82,7 @@ public class LobbyConverters
             if (localPlayer == null)
             {
                 localPlayer = new LocalPlayer(id, index, isHost, displayName, emote, PlayerStatus);
+                localLobby.AddPlayer(index, localPlayer);//刚进入房间,初始化所有玩家.
             }
             else
             {

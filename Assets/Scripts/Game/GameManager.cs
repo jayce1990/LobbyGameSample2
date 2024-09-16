@@ -185,6 +185,7 @@ public class GameManager : MonoBehaviour
                 m_countDown.StartCountDown();
             }
         };
+
         SetLobbyView();
         StartVivoxJoin();
     }

@@ -64,14 +64,19 @@ public class LocalLobby
     public List<LocalPlayer> LocalPlayers => m_LocalPlayers;
     List<LocalPlayer> m_LocalPlayers = new List<LocalPlayer>();
 
+    public bool ResetPlayerJoinedLeftEvent = true;
+
     public void ResetLobby()
-    {        
-        onPlayerJoined = null;
-        onPlayerLeft = null;
+    {
+        if (ResetPlayerJoinedLeftEvent)
+        {
+            onPlayerJoined = null;
+            onPlayerLeft = null;
+        }
         onPlayerReadyChange = null;
         LobbyID.Value = "";
         LobbyName.Value = "";
-        RelayCode.Value = "";        
+        RelayCode.Value = "";
         LobbyName.Value = "";
         HostID.Value = "";
         LocalLobbyState.Value = EnumLobbyState.Lobby;

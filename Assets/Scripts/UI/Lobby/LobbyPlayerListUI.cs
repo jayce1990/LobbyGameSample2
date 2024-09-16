@@ -14,8 +14,9 @@ public class LobbyPlayerListUI : UIPanelBase
 
         m_LocalLobby = GameManager.Instance.LocalLobby;
 
-        m_LocalLobby.onPlayerJoined += (_)=> { SynchPlayerUI(); };
-        m_LocalLobby.onPlayerLeft += (_)=> { SynchPlayerUI(); };
+        m_LocalLobby.onPlayerJoined = (_)=> { SynchPlayerUI(); };
+        m_LocalLobby.onPlayerLeft = (_)=> { SynchPlayerUI(); };
+        m_LocalLobby.ResetPlayerJoinedLeftEvent = false;
     }
 
     void SynchPlayerUI()
