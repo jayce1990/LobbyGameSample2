@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 {
     LocalPlayer m_LocalPlayer;
     LocalLobby m_LocalLobby;
+    public LocalPlayer LocalPlayer => m_LocalPlayer;
     public LocalLobby LocalLobby => m_LocalLobby;
     public LocalLobbyList LobbyList { get; private set; } = new LocalLobbyList();
 

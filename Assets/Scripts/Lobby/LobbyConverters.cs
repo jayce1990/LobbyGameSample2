@@ -81,7 +81,19 @@ public class LobbyConverters
             LocalPlayer localPlayer = localLobby.GetLocalPlayer(index);
             if (localPlayer == null)
             {
-                localPlayer = new LocalPlayer(id, index, isHost, displayName, emote, PlayerStatus);
+                if (id == GameManager.Instance.LocalPlayer.ID.Value)
+                {
+                    localPlayer = GameManager.Instance.LocalPlayer;
+                    localPlayer.ID.Value = id;
+                    localPlayer.Index.Value = index;
+                    localPlayer.IsHost.Value = isHost;
+                    localPlayer.DisplayName.Value = displayName;
+                    localPlayer.Emote.Value = emote;
+                    localPlayer.PlayerStatus.Value = PlayerStatus;
+                }
+                else
+                    localPlayer = new LocalPlayer(id, index, isHost, displayName, emote, PlayerStatus);
+
                 localLobby.AddPlayer(index, localPlayer);//刚进入房间,初始化所有玩家.
             }
             else
