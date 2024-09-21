@@ -2030,7 +2030,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7795555245711034648}
   toggleTransition: 1
   graphic: {fileID: 7521629725773045290}
-  m_Group: {fileID: 4888928395191490580}
+  m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -3949,7 +3949,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4881127488502006913}
   toggleTransition: 1
   graphic: {fileID: 4615394682956953685}
-  m_Group: {fileID: 4888928395191490580}
+  m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -4560,7 +4560,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 804057437202608285}
   toggleTransition: 1
   graphic: {fileID: 440493653893917787}
-  m_Group: {fileID: 4888928395191490580}
+  m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -4661,7 +4661,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6399103590931732894}
-  - component: {fileID: 4888928395191490580}
   m_Layer: 5
   m_Name: ToggleContainer
   m_TagString: Untagged
@@ -4692,19 +4691,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4888928395191490580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8415727185730967497}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AllowSwitchOff: 0
 --- !u!1 &8439540723906011498
 GameObject:
   m_ObjectHideFlags: 0
@@ -5462,7 +5448,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5065281797388873117}
   toggleTransition: 1
   graphic: {fileID: 4777837486786639553}
-  m_Group: {fileID: 4888928395191490580}
+  m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
       m_Calls:

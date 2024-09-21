@@ -57,6 +57,7 @@ public class JoinCreateLobbyUI : UIPanelBase
 
     private void OnDestroy()
     {
-        Manager.onGameStateChanged -= GameStateChanged;
+        if (Manager != null)
+            Manager.onGameStateChanged -= GameStateChanged;
     }
 }

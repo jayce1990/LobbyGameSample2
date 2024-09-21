@@ -78,7 +78,7 @@ public class VivoxPlayerHandler : MonoBehaviour
         if (isCurrentPlayer)
         {
             m_vivoxId = e.Key;//由于无法更早的构造VivoxID,这里设置它.
-                              //m_lobbyUserVolumeUI.IsLocalPlayer = participant.IsSelf;
+            m_lobbyPlayerVolumeUI.IsLocalPlayer = participant.IsSelf;
 
             if (participant.IsMutedForAll)
                 m_lobbyPlayerVolumeUI.DisableVoice(false);

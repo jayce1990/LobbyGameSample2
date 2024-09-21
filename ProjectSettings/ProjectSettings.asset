@@ -647,7 +647,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Standalone: UGS_BETA_LOBBY_EVENTS
+    Standalone: UGS_BETA_LOBBY_EVENTS;UGS_LOBBY_EVENTS;ENABLE_UNITY_WIRE_VERBOSE_LOGGING
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
