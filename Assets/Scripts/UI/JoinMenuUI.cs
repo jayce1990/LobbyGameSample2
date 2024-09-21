@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -48,12 +49,15 @@ public class JoinMenuUI : UIPanelBase
     }
     public void OnJoinClick()
     {
-        if (m_LocalLobbySelected != null)
+        if (m_LocalLobbySelected == null && string.IsNullOrEmpty(m_InputLobbyCode))
         {
-            string selectedLobbyID = m_LocalLobbySelected.LobbyID.Value;
-            Manager.JoinLobby(selectedLobbyID, m_InputLobbyCode, m_InputLobbyPwd);
-            m_LocalLobbySelected = null;
+            LogHandlerSettings.Instance.SpawnErrorPopup("Please Select a Lobby Or Input the lobbyCode that you want to joined!");
+            return;
         }
+
+        string selectedLobbyID = m_LocalLobbySelected == null ? null : m_LocalLobbySelected.LobbyID.Value;
+        Manager.JoinLobby(selectedLobbyID, m_InputLobbyCode, m_InputLobbyPwd);
+        m_LocalLobbySelected = null;
     }
     public void OnQuickJoinClick()
     {

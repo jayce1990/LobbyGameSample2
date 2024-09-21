@@ -315,7 +315,7 @@ public class LobbyManager : IDisposable
             joinOptions.Player = new Player(id: uasId, data: playerData);
             joinOptions.Password = password;
 
-            m_CurrentLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyId, joinOptions);
+            m_CurrentLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCode, joinOptions);
         }
 
         return m_CurrentLobby;
