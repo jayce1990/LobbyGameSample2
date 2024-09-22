@@ -47,8 +47,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //[SerializeField]
-    //SetupInGame m_setupInGame;
+    [SerializeField]
+    SetupInGame m_setupInGame;
     [SerializeField]
     CountDown m_countDown;
 
@@ -311,7 +311,8 @@ public class GameManager : MonoBehaviour
     {
         m_LocalPlayer.PlayerStatus.Value = EnumPlayerStatus.InGame;
         m_LocalLobby.LocalLobbyState.Value = EnumLobbyState.InGame;
-        //m_setupInGame.StartNetworkedGame(m_LocalLobby, m_LocalPlayer);
+
+        m_setupInGame.StartNetworkedGame(m_LocalLobby, m_LocalPlayer);
     }
     public void BeginGame()
     {
@@ -334,14 +335,14 @@ public class GameManager : MonoBehaviour
     }
     public void UIChangeMenuState(GameState state)
     {
-        var isQuittingGame = LocalGameState == GameState.Lobby && m_LocalLobby.LocalLobbyState.Value == EnumLobbyState.InGame;
-
+        var isQuittingGame = m_LocalLobby.LocalLobbyState.Value == EnumLobbyState.InGame && LocalGameState == GameState.Lobby;
         if (isQuittingGame)
         {
-            state = GameState.Lobby;//如果在游戏状态,确保先从Lobby状态停止.
-            EndGame();
-            //m_setupInGame?.OnGameEnd();
+            state = GameState.Lobby;//如果在游戏状态,确保先去大厅.
+            //EndGame();//注意:因为下面的m_setupInGame.OnGameEnd会调用这里的EndGame,因此这里不再重复调用.20240922
+            m_setupInGame?.OnGameEnd();
         }
+
         SetGameState(state);
     }
 

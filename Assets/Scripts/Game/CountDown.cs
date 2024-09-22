@@ -18,7 +18,7 @@ public class CountDown : MonoBehaviour
     {
         m_ui = GetComponent<CountDownUI>();
         TimeLeft.onChanged += m_ui.OnTimeChanged;
-        TimeLeft.Value = k_countDownTime;
+        TimeLeft.Value = -1;
     }
 
     public void StartCountDown()
