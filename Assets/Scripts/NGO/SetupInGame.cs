@@ -51,8 +51,8 @@ public class SetupInGame : MonoBehaviour
     {
         m_lobby = localLobby;
         m_InGameRunnerObj = Instantiate(m_IngameRunnerPrefab);
-        //InGameRunner inGameRunner =  m_InGameRunnerObj.GetComponentInChildren<InGameRunner>();
-        //inGameRunner.Initialize(OnConnectionVerified, m_lobby.PlayerCount, OnGameBegin, OnGameEnd, localPlayer);
+        InGameRunner inGameRunner =  m_InGameRunnerObj.GetComponentInChildren<InGameRunner>();
+        inGameRunner.Initialize(OnConnectionVerified, m_lobby.PlayerCount, OnGameBegin, OnGameEnd, localPlayer.DisplayName.Value);
         if (localPlayer.IsHost.Value)
         {
             await SetRelayHostData();
@@ -71,7 +71,9 @@ public class SetupInGame : MonoBehaviour
     }
     void OnGameBegin()
     {
-        if (!m_hasConnectedViaNGO)//玩家未成功通过NGO连接,强制退出该迷你游戏.
+        if (m_hasConnectedViaNGO)
+            GameManager.Instance.BeginGame();
+        else//玩家未成功通过NGO连接,强制退出该迷你游戏.
         {
             LogHandlerSettings.Instance.SpawnErrorPopup("Failed to join the game: Hasn't successfully connected via NGO.");
             OnGameEnd();
