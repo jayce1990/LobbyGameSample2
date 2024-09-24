@@ -709,7 +709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef8a2a376db87a1459ef3221977a0217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IngameRunnerPrefab: {fileID: 0}
+  m_IngameRunnerPrefab: {fileID: 7531646253072078050, guid: 4c53a82e4bb6d7f429625780acc18e3f, type: 3}
   m_disableWhileInGame:
   - {fileID: 1254535332}
   - {fileID: 6506251988130897036}
