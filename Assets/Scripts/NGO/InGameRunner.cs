@@ -116,6 +116,14 @@ public class InGameRunner : NetworkBehaviour
         }
     }
 
+    private void OnGUI()
+    {
+        if (GUI.Button(new Rect(Screen.width / 2, Screen.height / 2, 200, 100), "测试游戏结束"))
+        {
+            EndGame();
+        }
+    }
+
     /// <summary>
     /// TODO调用该函数.
     /// 当服务端游戏检测到结束条件达成: 开始走游戏结束的通信流程.
