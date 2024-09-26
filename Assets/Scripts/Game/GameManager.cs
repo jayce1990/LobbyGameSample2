@@ -309,8 +309,8 @@ public class GameManager : MonoBehaviour
 
     public void FinishedCountDown()
     {
-        m_LocalPlayer.PlayerStatus.Value = EnumPlayerStatus.InGame;
         m_LocalLobby.LocalLobbyState.Value = EnumLobbyState.InGame;
+        m_LocalPlayer.PlayerStatus.Value = EnumPlayerStatus.InGame;
 
         m_setupInGame.StartNetworkedGame(m_LocalLobby, m_LocalPlayer);
     }
