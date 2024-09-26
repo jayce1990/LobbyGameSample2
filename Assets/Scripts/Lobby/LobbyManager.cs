@@ -236,13 +236,8 @@ public class LobbyManager : IDisposable
             }
         };
 
-        await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobbyID, m_LobbyEventCallbacks);
-        //Why注册很久?可能是wss网站请求响应太慢,换公司网络如何?
-        //若不是网络问题,则像下面这样不一直等待?
-        //#pragma warning disable 4014
-        //        LobbyService.Instance.SubscribeToLobbyEventsAsync(lobbyID, m_LobbyEventCallbacks);
-        //#pragma warning restore 4014
-        //        await Task.Delay(100);
+        //Why注册很久导致websocket一直连接不上?可能是wss网站请求响应太慢,换公司网络如何?公司网络一切正常,那就是网络问题！！！
+        await LobbyService.Instance.SubscribeToLobbyEventsAsync(lobbyID, m_LobbyEventCallbacks);        
     }
 
     #region HeartBeat

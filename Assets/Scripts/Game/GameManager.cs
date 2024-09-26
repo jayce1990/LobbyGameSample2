@@ -202,12 +202,19 @@ public class GameManager : MonoBehaviour
             if (readCount == m_LocalLobby.PlayerCount)//全部准备了,应该是倒计时状态.
             {
                 if (m_LocalLobby.LocalLobbyState.Value != EnumLobbyState.CountDown)
+                {
                     m_LocalLobby.LocalLobbyState.Value = EnumLobbyState.CountDown;
+                    SendLocalLobbyData();
+                }
+                    
             }
             else //未全部准备,不应该是倒计时状态.
             {
                 if (m_LocalLobby.LocalLobbyState.Value == EnumLobbyState.CountDown)
+                {
                     m_LocalLobby.LocalLobbyState.Value = EnumLobbyState.Lobby;
+                    SendLocalLobbyData();
+                }                    
             }
         };
 
