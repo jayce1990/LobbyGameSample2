@@ -234,7 +234,7 @@ public class GameManager : MonoBehaviour
         try
         {
             var lobby = await LobbyManager.JoinLobbyAsync(lobbyID, lobbyCode, m_LocalPlayer, password);
-            LobbyConverters.RemoteToLocal(lobby, LocalLobby);
+            LobbyConverters.RemoteToLocal(lobby, m_LocalLobby);
             m_LocalPlayer.IsHost.ForceSet(false);//因为默认值是false,故设置false时,虽相同值,也强制其触发UIEvent.
             await BindLobby();
         }
@@ -316,7 +316,7 @@ public class GameManager : MonoBehaviour
 
     public void FinishedCountDown()
     {
-        m_LocalLobby.LocalLobbyState.Value = EnumLobbyState.InGame;
+        m_LocalLobby.LocalLobbyState.Value = EnumLobbyState.InGame;//Client只有该处是自己改lobbystate,其他改动都是通过Host(倒计时开始、取消,游戏开始、结束)下发,lobbyManager.DataAddedOrChanged事件接收后去改值。
         m_LocalPlayer.PlayerStatus.Value = EnumPlayerStatus.InGame;
 
         m_setupInGame.StartNetworkedGame(m_LocalLobby, m_LocalPlayer);

@@ -11,7 +11,7 @@ public class InGameRunner : NetworkBehaviour
     Action m_onConnectionVerfied;
     Action m_onGameEnd;
     int m_expectedPlayerCount;//Host使用
-    float m_timeout = 10;
+    float m_timeout = 60;
     bool m_hasConnected = false;
 
     PlayerData m_localPlayerData;//它的ID不一定是OwnerClientId,因为所有客户端都会看到所有生成的对象,而不管所有权如何.
@@ -48,9 +48,14 @@ public class InGameRunner : NetworkBehaviour
         
         VerifyConnection_ServerRpc(m_localPlayerData.id);
     }
+
+    /// <summary>
+    /// 如果意外的断开连接,那么这里作为一个备份,去确保游戏内对象被清理.
+    /// 包括Host主动关闭NetworkManager：Host主动结束游戏按钮、Host判断游戏进程完成、Host开始游戏时未连接NGO,进而调用Host.EndGame函数去关闭NetworkManager.Shutdown导致Clients的这里被调用.
+    /// </summary>
     public override void OnNetworkDespawn()
     {
-        EndGame();//如果意外的断开连接,那么这里作为一个备份,去确保游戏内对象被清理.
+        EndGame();
     }
     /// <summary>
     /// 去验证连接,触发一个服务器RPC,然后触发一个客户端RPC调用.在这之后,开始真正的Setup.

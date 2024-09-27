@@ -80,7 +80,8 @@ public class SetupInGame : MonoBehaviour
         }
     }
     /// <summary>
-    /// 比赛结束后返回本地大厅(游戏结束、主动退出游戏、连接失败)。
+    /// 比赛结束后返回本地大厅(Host计算游戏结束、Host主动结束游戏、Host连接NGO失败;
+    /// Client连接NGO失败,还有因为Host的上面三种情况在NetworkManager.Shutdown时,导致客户端OnNetworkDespawn触发游戏结束)。
     /// </summary>
     public void OnGameEnd()
     {
